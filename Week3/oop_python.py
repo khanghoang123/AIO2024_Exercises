@@ -94,6 +94,63 @@ class Ward:
                 count += 1
         return total/count
 
+class StackOverflow(Exception):
+    pass
+class StackUnderflow(Exception):   
+    pass
+class MyStack:
+    def __init__(self, capacity):
+        self.__capacity = capacity
+        self.__stack = []
+
+    def is_empty(self):
+        return len(self.__stack) == 0
+
+    def is_full(self):
+        return len(self.__stack) == self.__capacity
+
+    def pop(self):
+        if self.is_empty():
+            raise StackUnderflow('Underflow')
+        return self.__stack.pop()
+
+    def push(self, value):
+        if self.is_full():
+            raise StackOverflow('Overflow')
+        return self.__stack.append(value)
+
+    def top(self):
+        if self.is_empty():
+            return 'Stack is empty'
+        return self.__stack[-1]
+
+
+class Queue:
+    def __init__(self, capacity):
+        self.__capacity = capacity
+        self.__queue = []
+
+    def is_empty(self):
+        return len(self.__queue) == 0
+
+    def is_full(self):
+        return len(self.__queue) == self.__capacity
+
+    def enqueue(self, value):
+        if self.is_full():
+            raise StackOverflow('Overflow')
+        self.__queue.append(value)
+
+    def dequeue(self):
+        if self.is_empty():
+            raise StackUnderflow('Underflow')
+        return self.__queue.pop(0)
+
+    def front(self):
+        if self.is_empty():
+            return 'Queue is empty'
+        return self.__queue[0]
+
 
 if __name__ == '__main__':
     # Bai 1:
@@ -140,3 +197,25 @@ if __name__ == '__main__':
 
     # e
     print(f'\nAverage year of birth (teachers): {ward1.compute_average()}')
+
+    # Bai 3:
+    stack1 = MyStack(capacity=5)
+    stack1.push(1)
+    stack1.push(2)
+    print(stack1.is_full())
+    print(stack1.top())
+    print(stack1.pop())
+    print(stack1.top())
+    print(stack1.pop())
+    print(stack1.is_empty())
+
+    # Bai 4:
+    queue1 = Queue(capacity=5)
+    queue1.enqueue(1)
+    queue1.enqueue(2)
+    print(queue1.is_full())
+    print(queue1.front())
+    print(queue1.dequeue())
+    print(queue1.front())
+    print(queue1.dequeue())
+    print(queue1.is_empty())
